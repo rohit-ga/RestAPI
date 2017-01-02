@@ -1,34 +1,37 @@
 package com.ga.database;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import com.ga.model.Message;
-import com.ga.model.User;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class Database {
 
-    private static Map<Long, Message> messages = new HashMap<Long, Message>();
-    private static Set<User> users = new LinkedHashSet<User>();
-    private static List<User> userList = new ArrayList<User>();
-
-    public static Map<Long, Message> getMessages() {
-
-        return messages;
+    private Database() {
     }
 
-    public static Set<User> getUser() {
+    private static Database dbConnection;
 
-        return users;
+    public static Database getInstance() {
+        if (dbConnection == null) {
+            dbConnection = new Database();
+        }
+        return dbConnection;
     }
 
-    public static List<User> getAllUser() {
+    public static Connection doConnection() {
 
-        return userList;
+        Connection con = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            try {
+                con = DriverManager.getConnection("jdbc:mysql://localhost/rest_api", "root", "root");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return con;
     }
 
 }
