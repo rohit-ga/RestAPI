@@ -24,7 +24,7 @@ public class Database {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             try {
-                con = DriverManager.getConnection("jdbc:mysql://localhost/rest_api", "root", "root");
+                con = DriverManager.getConnection("jdbc:mysql://localhost/");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
