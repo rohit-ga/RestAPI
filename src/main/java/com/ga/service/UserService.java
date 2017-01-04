@@ -7,8 +7,6 @@ import com.ga.model.User;
 
 public class UserService {
 
-    // private Set<User> users = UserDao.registerUser();
-    // private List<User> userList = UserDao.getAllUser();
     UserDao userDao;
 
     public UserService() {
@@ -18,19 +16,11 @@ public class UserService {
     public String registerUser(User user) {
 
         return userDao.registerUser(user);
-        // user.setId(users.size() + 1);
-        // users.add(user);
-        // return "Registered Successfully";
     }
 
     public String loginUser(String email, String password) {
 
         return userDao.loginUser(email, password);
-        /*
-         * boolean flag = true; for (User user1 : users) { if (user1.getEmail().equals(email) &&
-         * user1.getPassword().equals(password)) { flag = false; return "Login successfull"; } } if (flag) { return
-         * "Wrong credential"; } return null;
-         */
     }
 
     public List<User> getAllUser() {
@@ -63,12 +53,12 @@ public class UserService {
     }
 
     public User getUserDetails(String email) {
-      
+
         return userDao.getUserDetails(email);
     }
 
     public String addUser(String firstName, String lastName, String contact, String email, String password) {
-System.out.println("Service formparam");
+
         User user1 = new User(firstName, lastName, contact, email, password);
         return userDao.addUser(user1);
     }

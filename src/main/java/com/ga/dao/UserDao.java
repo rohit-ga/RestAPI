@@ -12,8 +12,6 @@ import com.ga.model.User;
 
 public class UserDao {
 
-    // private Map<Long, Message> messages = new HashMap<Long, Message>();
-    // private static Set<User> users = new LinkedHashSet<User>();
     private static final String LOGIN_VALIDATION_QUERY = "select email, password from user where email=? and password=?";
     private static final String CHECK_USER_QUERY = "select email from user where email=?";
     private static final String REGISTER_USER_QUERY = "insert into user VALUES (?,?,?,?,?,?)";
@@ -23,11 +21,6 @@ public class UserDao {
     private static final String UPDATE_USER_QUERY = "update user set firstname=?,lastname=?,contact=? where id = ?";
     private static final String GET_USER_DETAILS_BY_EMAIL_QUERY = "select * from user where email=?";
 
-    /*
-     * public Map<Long, Message> getMessages() {
-     * 
-     * return messages; }
-     */
     public String registerUser(User user) {
 
         Connection connection = null;
@@ -293,7 +286,7 @@ public class UserDao {
             if (rs.next()) {
 
                 return "This Email Is Already Registered";
-                
+
             } else {
 
                 pst = connection.prepareStatement(REGISTER_USER_QUERY);

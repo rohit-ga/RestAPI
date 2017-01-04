@@ -1,15 +1,21 @@
 package com.ga.model;
 
+import javax.ws.rs.FormParam;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class User {
 
     private int id;
+    @FormParam("firstName")
     private String firstName;
+    @FormParam("lastName")
     private String lastName;
+    @FormParam("contact")
     private String contact;
+    @FormParam("email")
     private String email;
+    @FormParam("password")
     private String password;
     private String message;
 
