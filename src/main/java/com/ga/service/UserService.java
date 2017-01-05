@@ -59,8 +59,8 @@ public class UserService {
 
     public String addUser(String firstName, String lastName, String contact, String email, String password) {
 
-        User user1 = new User(firstName, lastName, contact, email, password);
-        return userDao.addUser(user1);
+        User user = new User(firstName, lastName, contact, email, password);
+        return userDao.registerUser(user);
     }
 
 }

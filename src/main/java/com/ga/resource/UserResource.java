@@ -1,6 +1,5 @@
 package com.ga.resource;
 
-import java.net.URI;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -12,13 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriBuilder;
-
-import org.glassfish.jersey.client.ClientConfig;
 
 import com.ga.model.User;
 import com.ga.service.UserService;
@@ -34,17 +27,6 @@ public class UserResource {
         userService = new UserService();
     }
     
-ClientConfig config = new ClientConfig();
-Client client = ClientBuilder.newClient(config);
-
-WebTarget target = client.target(getBaseURI());
-
-WebTarget response = target.path("rest");
-
-private static URI getBaseURI() {
-    return UriBuilder.fromUri("http://localhost:9091/RestJerseyAPI/").build();
-}
-
     @POST
     public String registerUser(User user) {
 //      registration for new user

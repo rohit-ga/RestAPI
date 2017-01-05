@@ -12,6 +12,13 @@ import com.ga.model.User;
 
 public class UserDao {
 
+    public UserDao() {
+    }
+    
+    Connection connection = null;
+    PreparedStatement pst;
+    ResultSet rs;
+
     private static final String LOGIN_VALIDATION_QUERY = "select email, password from user where email=? and password=?";
     private static final String CHECK_USER_QUERY = "select email from user where email=?";
     private static final String REGISTER_USER_QUERY = "insert into user VALUES (?,?,?,?,?,?)";
@@ -22,11 +29,7 @@ public class UserDao {
     private static final String GET_USER_DETAILS_BY_EMAIL_QUERY = "select * from user where email=?";
 
     public String registerUser(User user) {
-
-        Connection connection = null;
-        PreparedStatement pst;
-        ResultSet rs;
-
+//      registration for new user
         try {
             connection = Database.doConnection();
             pst = connection.prepareStatement(CHECK_USER_QUERY);
@@ -52,13 +55,13 @@ public class UserDao {
                 return "Regisered Successfully";
             }
         } catch (SQLException e) {
-            System.out.println("Error in registerUser() catching:- " + e.getMessage());
+            System.err.println("Error in registerUser() catching:- " + e.getMessage());
         } finally {
             if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    System.out.println("Error in registerUser() finally:- " + e.getMessage());
+                    System.err.println("Error in registerUser() finally:- " + e.getMessage());
                 }
             }
 
@@ -67,11 +70,7 @@ public class UserDao {
     }
 
     public String loginUser(String email, String password) {
-
-        Connection connection = null;
-        PreparedStatement pst;
-        ResultSet rs;
-
+//      to login
         try {
             connection = Database.doConnection();
             pst = connection.prepareStatement(LOGIN_VALIDATION_QUERY);
@@ -86,13 +85,13 @@ public class UserDao {
                 return "Credentials are mismatched. Please Retry";
             }
         } catch (SQLException e) {
-            System.out.println("Error in loginUser() catching:- " + e.getMessage());
+            System.err.println("Error in loginUser() catching:- " + e.getMessage());
         } finally {
             if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    System.out.println("Error in loginUser() finally:- " + e.getMessage());
+                    System.err.println("Error in loginUser() finally:- " + e.getMessage());
                 }
             }
 
@@ -101,10 +100,7 @@ public class UserDao {
     }
 
     public List<User> getAllUser() {
-
-        Connection connection = null;
-        PreparedStatement pst;
-        ResultSet rs;
+//      get list of users
         List<User> userList = new ArrayList<User>();
 
         try {
@@ -123,13 +119,13 @@ public class UserDao {
                 userList.add(dbUser);
             }
         } catch (SQLException e) {
-            System.out.println("Error in getAllUser() catching:- " + e.getMessage());
+            System.err.println("Error in getAllUser() catching:- " + e.getMessage());
         } finally {
             if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    System.out.println("Error in getAllUser() finally:- " + e.getMessage());
+                    System.err.println("Error in getAllUser() finally:- " + e.getMessage());
                 }
             }
         }
@@ -137,11 +133,7 @@ public class UserDao {
     }
 
     public String deleteUserById(int id) {
-
-        Connection connection = null;
-        PreparedStatement pst;
-        ResultSet rs;
-
+//      pass id and delete user
         try {
             connection = Database.doConnection();
             pst = connection.prepareStatement(GET_USER_BY_ID_QUERY);
@@ -158,13 +150,13 @@ public class UserDao {
                 return "Data not found";
             }
         } catch (SQLException e) {
-            System.out.println("Error in deleteUserById() catching:- " + e.getMessage());
+            System.err.println("Error in deleteUserById() catching:- " + e.getMessage());
         } finally {
             if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    System.out.println("Error in deleteUserById() finally:- " + e.getMessage());
+                    System.err.println("Error in deleteUserById() finally:- " + e.getMessage());
                 }
             }
         }
@@ -172,11 +164,7 @@ public class UserDao {
     }
 
     public User getUserById(int id) {
-
-        Connection connection = null;
-        PreparedStatement pst;
-        ResultSet rs;
-
+//      pass id and get user's details
         try {
             connection = Database.doConnection();
             pst = connection.prepareStatement(GET_USER_BY_ID_QUERY);
@@ -193,13 +181,13 @@ public class UserDao {
                 return new User("UserID Doesn't Exist");
             }
         } catch (SQLException e) {
-            System.out.println("Error in getUserById() catching:- " + e.getMessage());
+            System.err.println("Error in getUserById() catching:- " + e.getMessage());
         } finally {
             if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    System.out.println("Error in getUserById() finally:- " + e.getMessage());
+                    System.err.println("Error in getUserById() finally:- " + e.getMessage());
                 }
             }
         }
@@ -207,10 +195,7 @@ public class UserDao {
     }
 
     public String updateUser(int id, User user1) {
-
-        Connection connection = null;
-        PreparedStatement pst;
-
+//      update user's general details
         try {
             connection = Database.doConnection();
             pst = connection.prepareStatement(UPDATE_USER_QUERY);
@@ -222,13 +207,13 @@ public class UserDao {
             return "Data Updated Successfully";
 
         } catch (SQLException e) {
-            System.out.println("Error in updateUser() catching:- " + e.getMessage());
+            System.err.println("Error in updateUser() catching:- " + e.getMessage());
         } finally {
             if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    System.out.println("Error in updateUser() finally:- " + e.getMessage());
+                    System.err.println("Error in updateUser() finally:- " + e.getMessage());
                 }
             }
         }
@@ -236,11 +221,7 @@ public class UserDao {
     }
 
     public User getUserDetails(String email) {
-
-        Connection connection = null;
-        PreparedStatement pst;
-        ResultSet rs;
-
+//      pass user's email and get required details of the user
         try {
             connection = Database.doConnection();
             pst = connection.prepareStatement(GET_USER_DETAILS_BY_EMAIL_QUERY);
@@ -258,56 +239,13 @@ public class UserDao {
                 return new User("Invalid Email");
             }
         } catch (SQLException e) {
-            System.out.println("Error in getUserDetails() catching:- " + e.getMessage());
+            System.err.println("Error in getUserDetails() catching:- " + e.getMessage());
         } finally {
             if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    System.out.println("Error in getUserDetails() finally:- " + e.getMessage());
-                }
-            }
-        }
-        return null;
-    }
-
-    public String addUser(User user1) {
-
-        Connection connection = null;
-        PreparedStatement pst;
-        ResultSet rs;
-
-        try {
-            connection = Database.doConnection();
-            pst = connection.prepareStatement(CHECK_USER_QUERY);
-            pst.setString(1, user1.getEmail());
-            rs = pst.executeQuery();
-
-            if (rs.next()) {
-
-                return "This Email Is Already Registered";
-
-            } else {
-
-                pst = connection.prepareStatement(REGISTER_USER_QUERY);
-                pst.setInt(1, 0);
-                pst.setString(2, user1.getFirstName());
-                pst.setString(3, user1.getLastName());
-                pst.setString(4, user1.getContact());
-                pst.setString(5, user1.getEmail());
-                pst.setString(6, user1.getPassword());
-                pst.executeUpdate();
-
-                return "Regisered Successfully";
-            }
-        } catch (SQLException e) {
-            System.out.println("Error in getUserDetails() catching:- " + e.getMessage());
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    System.out.println("Error in getUserDetails() finally:- " + e.getMessage());
+                    System.err.println("Error in getUserDetails() finally:- " + e.getMessage());
                 }
             }
         }
