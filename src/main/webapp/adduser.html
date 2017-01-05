@@ -6,9 +6,9 @@
 </head>
 <body>
 	<form action="http://localhost:9091/RestJerseyAPI/user/add" method="post">
-		First Name:-<br> <input type="text" name="firstName"><br>
-		Last Name:-<br> <input type="text" name="lastName"><br>
-		Contact:-<br> <input type="tel" name="contact" maxlength="10"
+		First Name:-<br> <input type="text" pattern="[A-Za-z]{1,32}" name="firstName" ><br>
+		Last Name:-<br> <input type="text" pattern="[A-Za-z]{1,32}" name="lastName"><br>
+		Contact:-<br> <input type="tel" name="contact" maxlength="10" pattern="/(7|8|9)\d{9}/"
 			required><br> Email:-<br> <input type="email"
 			name="email" required><br> Password:-<br> <input
 			type="password" name="password" required><br> <br>
